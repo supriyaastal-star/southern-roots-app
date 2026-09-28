@@ -5,12 +5,13 @@ import {
   FiPhone,
   FiMapPin,
 } from "react-icons/fi";
+import logo from "../../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-[#fbf7eb] text-[#642409]">
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12 shadow-sm">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
@@ -20,15 +21,10 @@ const Footer = () => {
               to="/"
               className="text-2xl font-bold"
             >
-              <span className="text-orange-400">
-                SOUTHERN
-              </span>{" "}
-              <span className="text-green-400">
-                ROOTS
-              </span>
+              <img src={logo} alt="Southern Roots logo" className="w-[174px] h-[68px] md:w-[227px] md:h-[97px] object-contain" />
             </Link>
 
-            <p className="text-gray-400 text-sm leading-6 mt-4">
+            <p className="text-[#642409] text-sm leading-6 mt-4">
               Bringing authentic South Indian spices,
               masalas, snacks and everyday essentials
               to your doorstep.
@@ -37,35 +33,35 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
+            <h3 className="text-[#642409] font-semibold text-lg mb-4">
               Quick Links
             </h3>
 
             <div className="space-y-3 text-sm">
               <Link
                 to="/"
-                className="block hover:text-white"
+                className="block hover:text-[#642409]"
               >
                 Home
               </Link>
 
               <Link
                 to="/products"
-                className="block hover:text-white"
+                className="block hover:text-[#642409]"
               >
                 All Products
               </Link>
 
               <Link
                 to="/account"
-                className="block hover:text-white"
+                className="block hover:text-[#642409]"
               >
                 My Account
               </Link>
 
               <Link
                 to="/orders"
-                className="block hover:text-white"
+                className="block hover:text-[#642409]"
               >
                 My Orders
               </Link>
@@ -74,7 +70,7 @@ const Footer = () => {
 
           {/* Categories */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
+            <h3 className="text-[#642409] font-semibold text-lg mb-4">
               Categories
             </h3>
 
@@ -89,14 +85,14 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
+            <h3 className="text-[#642409] font-semibold text-lg mb-4">
               Contact Us
             </h3>
 
             <div className="space-y-4 text-sm">
 
               <div className="flex gap-3">
-                <FiMapPin className="text-green-400 text-lg shrink-0 mt-0.5" />
+                <FiMapPin className="text-[#642409] text-lg shrink-0 mt-0.5" />
 
                 <p>
                   Pune, Maharashtra, India
@@ -104,7 +100,7 @@ const Footer = () => {
               </div>
 
               <div className="flex gap-3">
-                <FiPhone className="text-green-400 text-lg shrink-0" />
+                <FiPhone className="text-[#642409] text-lg shrink-0" />
 
                 <p>
                   +91 00000 00000
@@ -112,7 +108,7 @@ const Footer = () => {
               </div>
 
               <div className="flex gap-3">
-                <FiMail className="text-green-400 text-lg shrink-0" />
+                <FiMail className="text-[#642409] text-lg shrink-0" />
 
                 <p>
                   support@southernroots.com
@@ -125,7 +121,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-500">
+        <div className="border-t border-[#642409] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-[#642409]">
 
           <p>
             © 2026 Southern Roots. All rights reserved.

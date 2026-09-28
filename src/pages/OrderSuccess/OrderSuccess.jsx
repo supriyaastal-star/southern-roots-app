@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiCheckCircle } from "react-icons/fi";
 
 const OrderSuccess = () => {
+  const location = useLocation();
+  const date = location.state?.date;
+  const timeSlot = location.state?.timeSlot;
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white border border-gray-200 rounded-2xl p-8 sm:p-12 text-center max-w-lg w-full">
@@ -27,6 +31,28 @@ const OrderSuccess = () => {
             SR-{Math.floor(100000 + Math.random() * 900000)}
           </p>
         </div>
+
+        {(date || timeSlot) && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4 text-left">
+            <p className="text-sm text-green-700 font-medium uppercase tracking-wide">
+              Delivery Schedule
+            </p>
+
+            <p className="text-gray-900 font-semibold mt-1">
+              {date ? new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+              }) : ""}
+            </p>
+
+            {timeSlot && (
+              <p className="text-gray-700 mt-1">
+                {timeSlot}
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="flex flex-col sm:flex-row gap-3 mt-7">
 

@@ -9,19 +9,43 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 
+const getAccountData = () => {
+  try {
+    const activeUser = JSON.parse(localStorage.getItem("southernRootsActiveUser") || "null");
+
+    if (activeUser?.email) {
+      return {
+        name: activeUser.name || "Customer",
+        email: activeUser.email,
+        phone: activeUser.phone || "+91 98765 43210",
+        address: activeUser.address || "No delivery address saved yet.",
+      };
+    }
+  } catch (error) {
+    console.error("Failed to read active user:", error);
+  }
+
+  return {
+    name: "Ananya Nair",
+    email: "ananya.nair@gmail.com",
+    phone: "+91 98765 43210",
+    address: "24, Green Valley Lane, Koramangala, Bengaluru, Karnataka - 560034",
+  };
+};
+
 const Account = () => {
   const navigate = useNavigate();
+  const accountData = getAccountData();
 
   const handleLogout = () => {
-    // Temporary frontend logout
-    navigate("/");
+    localStorage.removeItem("southernRootsActiveUser");
+    navigate("/login");
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 py-8">
 
-        {/* Page Header */}
         <div className="mb-8">
           <p className="text-sm text-green-700 font-medium">
             MY ACCOUNT
@@ -36,31 +60,25 @@ const Account = () => {
           </p>
         </div>
 
-        {/* Profile Card */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <div className="flex items-center gap-4">
-
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
               <FiUser className="text-3xl text-green-700" />
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-gray-900">
-                Welcome, Customer
+                Welcome, {accountData.name}
               </h2>
 
               <p className="text-gray-500 text-sm mt-1">
-                customer@example.com
+                {accountData.email}
               </p>
             </div>
-
           </div>
         </div>
 
-        {/* Account Options */}
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-
-          {/* Orders */}
           <Link
             to="/orders"
             className="flex items-center gap-4 p-5 border-b hover:bg-gray-50 transition"
@@ -82,8 +100,10 @@ const Account = () => {
             <FiChevronRight className="text-gray-400" />
           </Link>
 
-          {/* Address */}
-          <div className="flex items-center gap-4 p-5 border-b">
+          <Link
+            to="/address"
+            className="flex items-center gap-4 p-5 border-b hover:bg-gray-50 transition"
+          >
             <div className="w-11 h-11 rounded-lg bg-orange-50 flex items-center justify-center">
               <FiMapPin className="text-xl text-orange-600" />
             </div>
@@ -94,15 +114,17 @@ const Account = () => {
               </h3>
 
               <p className="text-sm text-gray-500 mt-1">
-                Manage your delivery address
+                {accountData.address}
               </p>
             </div>
 
             <FiChevronRight className="text-gray-400" />
-          </div>
+          </Link>
 
-          {/* Profile */}
-          <div className="flex items-center gap-4 p-5 border-b">
+          <Link
+            to="/profile"
+            className="flex items-center gap-4 p-5 border-b hover:bg-gray-50 transition"
+          >
             <div className="w-11 h-11 rounded-lg bg-blue-50 flex items-center justify-center">
               <FiUser className="text-xl text-blue-600" />
             </div>
@@ -113,14 +135,13 @@ const Account = () => {
               </h3>
 
               <p className="text-sm text-gray-500 mt-1">
-                Manage your personal information
+                {accountData.phone}
               </p>
             </div>
 
             <FiChevronRight className="text-gray-400" />
-          </div>
+          </Link>
 
-          {/* Logout */}
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-4 p-5 hover:bg-red-50 transition text-left"
@@ -141,10 +162,8 @@ const Account = () => {
 
             <FiChevronRight className="text-gray-400" />
           </button>
-
         </div>
 
-        {/* Continue Shopping */}
         <div className="mt-6 text-center">
           <Link
             to="/products"

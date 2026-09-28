@@ -5,6 +5,7 @@ import products from "../../data/products";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { Link } from "react-router-dom";
+import heroBanner from "../../assets/hero-banner.png";
 
 const Home = () => {
   return (
@@ -13,28 +14,27 @@ const Home = () => {
       {/* Hero Banner */}
      <section
   className="relative bg-cover bg-center"
-  style={{ backgroundImage: "url('/assets/hero.jpg')" }}
+  style={{ backgroundImage: `url(${heroBanner})` }}
 >
   {/* Dark green overlay */}
-  <div className="absolute inset-0 bg-green-900/70"></div>
+  <div className="absolute inset-0"></div>
 
   <div className="relative max-w-7xl mx-auto px-4 py-14 sm:py-20">
     <div className="max-w-2xl text-white">
 
-      <p className="text-orange-300 font-medium mb-3">
+      <p className="text-[#622207] font-medium mb-3 text-decorative uppercase tracking-widest">
         AUTHENTIC SOUTH INDIAN PRODUCTS
       </p>
 
-      <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
-        Taste the Tradition of Southern India
+      <h1 className="text-4xl sm:text-5xl font-bold leading-tight text-[#084013]">
+        Everything you love about South Indian flavors, in one place.
       </h1>
 
-      <p className="mt-5 text-green-100 text-lg">
-        Discover authentic spices, masalas, snacks and
-        everyday essentials from South India.
+      <p className="mt-5 text-[#084013] text-lg">
+        From fragrant spices and traditional masalas to beloved regional snacks and everyday essentials, Southern Roots connects you with authentic flavors inspired by generations of South Indian culinary traditions.
       </p>
 
-      <button className="mt-7 bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+      <button className="mt-7 bg-[#5c2507] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#4a1e06] transition">
         Shop Now
       </button>
 

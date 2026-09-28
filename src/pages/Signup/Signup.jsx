@@ -33,10 +33,45 @@ const Signup = () => {
       return;
     }
 
-    // Temporary frontend signup
-    console.log("Signup Data:", formData);
+    try {
+      const existingUsers = JSON.parse(localStorage.getItem("southernRootsUsers") || "[]");
+      const emailExists = existingUsers.some(
+        (user) => user.email.toLowerCase() === formData.email.toLowerCase()
+      );
 
-    navigate("/account");
+      if (emailExists) {
+        setError("An account with this email already exists.");
+        return;
+      }
+
+      const newUser = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        phone: "+91 98765 43210",
+        city: "Bengaluru",
+        state: "Karnataka",
+        address: "24, Green Valley Lane, Koramangala, Bengaluru, Karnataka - 560034",
+      };
+
+      localStorage.setItem("southernRootsUsers", JSON.stringify([...existingUsers, newUser]));
+      localStorage.setItem(
+        "southernRootsActiveUser",
+        JSON.stringify({
+          name: newUser.name,
+          email: newUser.email,
+          phone: newUser.phone,
+          city: newUser.city,
+          state: newUser.state,
+          address: newUser.address,
+        })
+      );
+
+      navigate("/account");
+    } catch (signupError) {
+      console.error("Signup failed:", signupError);
+      setError("Something went wrong while creating your account.");
+    }
   };
 
   return (

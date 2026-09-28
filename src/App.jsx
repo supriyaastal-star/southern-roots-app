@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
@@ -12,29 +13,48 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Account from "./pages/Account/Account";
 import Orders from "./pages/Orders/Orders";
+import Profile from "./pages/Profile/Profile";
+import Address from "./pages/Address/Address";
 import Footer from "./components/Footer/Footer";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   return (
     <CartProvider>
-    <BrowserRouter>
-  <Header />
+      <BrowserRouter>
+        <ScrollToTop />
+        <Header />
 
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/products" element={<Products />} />
-    <Route path="/products/:slug" element={<ProductDetails />} />
-    <Route path="/cart" element={<Cart />} />
-    <Route path="/checkout" element={<Checkout />} />
-    <Route path="/order-success" element={<OrderSuccess />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/account" element={<Account />} />
-    <Route path="/orders" element={<Orders />} />
-  </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:slug" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/address" element={<Address />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
 
-  <Footer />
-</BrowserRouter>
+        <Footer />
+      </BrowserRouter>
     </CartProvider>
   );
 }

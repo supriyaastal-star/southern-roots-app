@@ -4,5 +4,57 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f8f8f8;
+  background: #FAF7E7;
+}
+
+/* Global brand colors: primary (#094114) and secondary (#632308) */
+:root {
+  --primary: #094114;
+  --secondary: #632308;
+  --primary-50: rgba(9,65,20,0.06);
+  --primary-100: rgba(9,65,20,0.12);
+}
+
+/* Override commonly used Tailwind green/orange utilities to use brand colors */
+.text-green-600,
+.text-green-700,
+.text-green-800 {
+  color: var(--primary) !important;
+}
+
+.bg-green-600,
+.bg-green-700,
+.bg-green-800 {
+  background-color: var(--primary) !important;
+}
+
+.bg-green-50 {
+  background-color: var(--primary-50) !important;
+}
+
+.bg-green-100 {
+  background-color: var(--primary-100) !important;
+}
+
+.text-orange-500 {
+  color: var(--secondary) !important;
+}
+
+/* Variant utilities (focus/hover) commonly emitted by Tailwind */
+.focus\:border-green-600:focus {
+  border-color: var(--primary) !important;
+}
+
+.hover\:text-green-700:hover {
+  color: var(--primary) !important;
+}
+
+.hover\:bg-green-700:hover,
+.hover\:bg-green-800:hover {
+  background-color: var(--primary) !important;
+}
+
+.text-green-50,
+.text-green-100 {
+  color: var(--primary) !important;
 }

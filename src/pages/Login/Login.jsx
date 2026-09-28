@@ -9,6 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,10 +23,35 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Temporary frontend login
-    console.log("Login Data:", formData);
+    try {
+      const users = JSON.parse(localStorage.getItem("southernRootsUsers") || "[]");
+      const matchedUser = users.find(
+        (user) =>
+          user.email.toLowerCase() === formData.email.toLowerCase() &&
+          user.password === formData.password
+      );
 
-    navigate("/account");
+      if (!matchedUser) {
+        setError("Invalid email or password. Please check your credentials.");
+        return;
+      }
+
+      const activeUser = {
+        name: matchedUser.name || "Customer",
+        email: matchedUser.email,
+        phone: matchedUser.phone || "+91 98765 43210",
+        city: matchedUser.city || "Bengaluru",
+        state: matchedUser.state || "Karnataka",
+        address: matchedUser.address || "24, Green Valley Lane, Koramangala, Bengaluru, Karnataka - 560034",
+      };
+
+      localStorage.setItem("southernRootsActiveUser", JSON.stringify(activeUser));
+      setError("");
+      navigate("/account");
+    } catch (loginError) {
+      console.error("Login failed:", loginError);
+      setError("Something went wrong during login. Please try again.");
+    }
   };
 
   return (
@@ -102,6 +128,10 @@ const Login = () => {
                 />
               </div>
             </div>
+
+            {error && (
+              <p className="text-sm text-red-600">{error}</p>
+            )}
 
             {/* Login */}
             <button

@@ -3,9 +3,41 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiCheck } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 
+const getLocalDateString = (date) => {
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split("T")[0];
+};
+
+const getNextDates = (count = 5) => {
+  const dates = [];
+
+  for (let i = 0; i < count; i += 1) {
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+    dates.push(getLocalDateString(date));
+  }
+
+  return dates;
+};
+
+const deliverySlots = {
+  weekday: [
+    "3:00 PM - 4:00 PM",
+    "4:00 PM - 5:00 PM",
+    "5:00 PM - 6:00 PM",
+  ],
+  weekend: [
+    "3:00 PM - 4:00 PM",
+    "4:00 PM - 5:00 PM",
+    "5:00 PM - 6:00 PM",
+  ],
+};
+
 const Checkout = () => {
   const { cart, subtotal, clearCart } = useCart();
   const navigate = useNavigate();
+  const nextDates = getNextDates();
 
   const [address, setAddress] = useState({
     name: "",
@@ -15,6 +47,13 @@ const Checkout = () => {
     state: "",
     pincode: "",
   });
+  const [selectedDate, setSelectedDate] = useState(nextDates[0]);
+  const [timeSlot, setTimeSlot] = useState("");
+
+  const selectedDay = new Date(`${selectedDate}T00:00:00`).getDay();
+  const availableSlots = selectedDay === 0 || selectedDay === 6
+    ? deliverySlots.weekend
+    : deliverySlots.weekday;
 
   const deliveryCharge = subtotal > 0 ? 40 : 0;
   const total = subtotal + deliveryCharge;
@@ -31,10 +70,19 @@ const Checkout = () => {
   const handlePlaceOrder = (e) => {
     e.preventDefault();
 
+    if (!selectedDate || !timeSlot) {
+      return;
+    }
+
     // Temporary frontend order flow
     clearCart();
 
-    navigate("/order-success");
+    navigate("/order-success", {
+      state: {
+        date: selectedDate,
+        timeSlot,
+      },
+    });
   };
 
   if (cart.length === 0) {
@@ -96,6 +144,77 @@ const Checkout = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Delivery Date
+                  </label>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {nextDates.map((date) => {
+                      const dateLabel = new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                      });
+
+                      return (
+                        <label
+                          key={date}
+                          className={`flex items-center gap-3 border rounded-lg px-4 py-3 cursor-pointer transition ${
+                            selectedDate === date
+                              ? "border-green-600 bg-green-50 text-green-800"
+                              : "border-gray-300 hover:border-green-400 text-gray-700"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="deliveryDate"
+                            value={date}
+                            checked={selectedDate === date}
+                            onChange={() => {
+                              setSelectedDate(date);
+                              setTimeSlot("");
+                            }}
+                            required
+                            className="accent-green-700"
+                          />
+                          <span className="font-medium">{dateLabel}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Preferred Delivery Time Slot
+                  </label>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {availableSlots.map((slot) => (
+                      <label
+                        key={slot}
+                        className={`flex items-center gap-3 border rounded-lg px-4 py-3 cursor-pointer transition ${
+                          timeSlot === slot
+                            ? "border-green-600 bg-green-50 text-green-800"
+                            : "border-gray-300 hover:border-green-400 text-gray-700"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="timeSlot"
+                          value={slot}
+                          checked={timeSlot === slot}
+                          onChange={() => setTimeSlot(slot)}
+                          required
+                          className="accent-green-700"
+                        />
+                        <span className="font-medium">{slot}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
 
                 {/* Name */}
                 <div>

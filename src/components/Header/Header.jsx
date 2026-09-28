@@ -11,6 +11,7 @@ import {
   FiLogIn,
 } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-[#FAF7E7] shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3">
 
           <div className="flex items-center justify-between gap-4">
@@ -56,7 +57,7 @@ const Header = () => {
               to="/"
               className="text-xl md:text-2xl font-bold whitespace-nowrap"
             >
-                <img src="" alt="logo"/>
+                <img src={logo} alt="Southern Roots logo" className="w-[174px] h-[68px] md:w-[227px] md:h-[97px] object-contain" />
               {/* <span className="text-orange-500">SOUTHERN</span>{" "}
               <span className="text-green-700">ROOTS</span> */}
             </Link>
@@ -154,12 +155,7 @@ const Header = () => {
                 onClick={closeMenu}
                 className="text-xl font-bold"
               >
-                <span className="text-orange-500">
-                  SOUTHERN
-                </span>{" "}
-                <span className="text-green-700">
-                  ROOTS
-                </span>
+                 <img src={logo} alt="Southern Roots logo" className="w-[174px] h-[68px] md:w-[227px] md:h-[97px] object-contain" />
               </Link>
 
               <button

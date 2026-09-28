@@ -185,7 +185,7 @@ const ProductDetails = () => {
              <button
   onClick={() => addToCart(product, quantity)}
   disabled={!product.stock}
-  className="mt-8 w-full sm:w-auto flex items-center justify-center gap-3 bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white px-8 py-4 rounded-xl font-semibold transition"
+  className="mt-8 w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed bg-[#5c2507] hover:bg-[#4e1f05] disabled:bg-gray-400 text-white px-8 py-4 rounded-xl font-semibold transition"
 >
   <FiShoppingCart className="text-xl" />
   Add to Cart
