@@ -1,0 +1,47 @@
+{
+  "name": "Origin of South",
+  "short_name": "Origin of South",
+  "description": "Origin of South storefront app for browsing products and shopping online.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f3ee",
+  "theme_color": "#2d1a12",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/southern-roots-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/southern-roots-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/southern-roots-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Origin of South home screen on desktop"
+    },
+    {
+      "src": "/screenshots/southern-roots-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Origin of South mobile storefront"
+    }
+  ]
+}

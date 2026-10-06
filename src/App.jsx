@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Header from "./components/Header/Header";
@@ -32,6 +32,29 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [installPrompt, setInstallPrompt] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!installPrompt) return;
+
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
+  };
+
   return (
     <CartProvider>
       <BrowserRouter>
@@ -52,6 +75,28 @@ function App() {
           <Route path="/address" element={<Address />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
+
+        {installPrompt && (
+          <button
+            type="button"
+            onClick={handleInstallClick}
+            style={{
+              position: "fixed",
+              right: "1rem",
+              bottom: "1rem",
+              zIndex: 1000,
+              background: "#7c2d12",
+              color: "#fff",
+              border: "none",
+              borderRadius: "9999px",
+              padding: "0.75rem 1rem",
+              cursor: "pointer",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+            }}
+          >
+            Install app
+          </button>
+        )}
 
         <Footer />
       </BrowserRouter>
